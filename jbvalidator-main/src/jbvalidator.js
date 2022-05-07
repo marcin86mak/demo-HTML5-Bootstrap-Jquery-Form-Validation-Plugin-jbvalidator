@@ -184,7 +184,7 @@
             $(el).removeClass(options.validClass);
             $(el).addClass(options.invalidClass);
 
-            message = $(el).data('vMessage') ?? message;
+            message = $(el).data('vMessage') ? $(el).data('vMessage'): message;
 
             if (options.errorMessage) {
                 let group = $(el).parent();
@@ -413,7 +413,7 @@
             } else if (el.validity.rangeOverflow) {
 
                 if (typeof errorMessages.HTML5.rangeOverflow[el.type] !== 'undefined') {
-                    let max = el.getAttribute('max') ?? null;
+                    let max = el.getAttribute('max') ? el.getAttribute('max'): null;
 
                     if (el.type === 'date' || el.type === 'month') {
                         let date = new Date(max);
@@ -429,7 +429,7 @@
             } else if (el.validity.rangeUnderflow) {
 
                 if (typeof errorMessages.HTML5.rangeUnderflow[el.type] !== 'undefined') {
-                    let min = el.getAttribute('min') ?? null;
+                    let min = el.getAttribute('min') ? el.getAttribute('min') : null;
 
                     if (el.type === 'date' || el.type === 'month') {
                         let date = new Date(min);
@@ -445,7 +445,7 @@
             } else if (el.validity.stepMismatch) {
 
                 if (typeof errorMessages.HTML5.stepMismatch[el.type] !== 'undefined') {
-                    let step = el.getAttribute('step') ?? null;
+                    let step = el.getAttribute('step') ? el.getAttribute('step'): null;
 
                     if (el.type === 'date' || el.type === 'month') {
                         let date = new Date(step);
@@ -460,13 +460,13 @@
 
             } else if (el.validity.tooLong) {
 
-                let minLength = el.getAttribute('maxlength') ?? null;
+                let minLength = el.getAttribute('maxlength') ? el.getAttribute('maxlength'): null;
                 let value = $(el).val();
                 return errorMessages.HTML5.tooLong.sprintf(minLength, value.length);
 
             } else if (el.validity.tooShort) {
 
-                let maxLength = el.getAttribute('minlength') ?? null;
+                let maxLength = el.getAttribute('minlength') ? el.getAttribute('minlength'): null;
                 let value = $(el).val();
                 return errorMessages.HTML5.tooShort.sprintf(maxLength, value.length);
 
@@ -475,7 +475,7 @@
                 if (hasAttr(el, 'pattern') && hasAttr(el, 'title')) {
                     return $(el).attr('title');
                 }
-                let pattern = el.getAttribute('pattern') ?? null;
+                let pattern = el.getAttribute('pattern') ? el.getAttribute('pattern'): null;
                 return errorMessages.HTML5.patternMismatch.sprintf(pattern);
 
             } else if (el.validity.badInput) {
@@ -486,7 +486,7 @@
 
             }
 
-            return el.validationMessage ?? '';
+            return el.validationMessage ? el.validationMessage : '';
         }
 
         /**
